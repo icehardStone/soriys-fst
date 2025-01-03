@@ -1,0 +1,85 @@
+{
+	// Place your snippets for go here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"yyyy-MM-dd HH:mm:ss": {
+		"prefix":"yyyy-MM-dd HH:mm:ss",
+		"description": "now with format yyyy-MM-dd HH:mm:ss",
+		"body": [
+			"time.Now().Format(\"2006-01-02 15:04:05\")"
+		]
+	},
+	"yyyy-MM-dd": {
+		"prefix":"yyyy-MM-dd",
+		"description": "now with format yyyy-MM-dd",
+		"body": [
+			"time.Now().Format(\"2006-01-02\")"
+		]
+	},
+	"swagger tag":{
+		"prefix": "swagger tag",
+		"description": "",
+		"body": [
+			"// @Description get struct array by ID",
+"// @Accept  json",
+"// @Produce  json",
+"// @Tags File",
+"// @Param   some_id     path    string     true        \"Some ID\"",
+"// @Param   offset     query    int     true        \"Offset\"",
+"// @Param   limit      query    int     true        \"Limit\"",
+"// @Success 200 {string} string \"ok\"",
+"// @Failure 400 {object} serror.APIError \"We need ID!!\"",
+"// @Failure 404 {object} serror.APIError \"Can not find ID\"",
+"// @Router /testapi/get-struct-array-by-string/{some_id} [get]",
+		]
+	},
+	"swagger main tag": {
+		"prefix": "swagger main tag",
+		"description": "",
+		"body": [
+"// @title Swagger API",
+"// @version 1.0",
+"// @description This is a sample server Petstore server.",
+"// @termsOfService http://swagger.io/terms/",
+
+"// @contact.name API Support",
+"// @contact.url http://www.swagger.io/support",
+"// @contact.email support@swagger.io",
+
+"// @license.name Apache 2.0",
+"// @license.url http://www.apache.org/licenses/LICENSE-2.0.html",
+
+"// @host petstore.swagger.io:8080",
+"// @BasePath /v2"
+		]
+	},
+	"swagger security tag": {
+		"body": [
+"// SecuritiesExample    godoc",
+"//@Summary              custome header example",
+"//@Description          custome header",
+"//@Tags                 example",
+"//@Accept               json",
+"//@Produce              json",
+"//@Param                Authorization       header              string       true       \"Authentication header\"",
+"//@Success              200                            {string}       string       \"answer\"",
+"//@Failure              400                            {string}       string       \"ok\"",
+"//@Failure              404                            {string}       string       \"ok\"",
+"//@Failure              500                            {string}       string       \"ok\"",
+"//@Security             ApiKeyAuth",
+"//@Security             OAuth2Implicit[admin, write]",
+"//@Router               /examples/securities [get]",
+
+		]
+	}
+}

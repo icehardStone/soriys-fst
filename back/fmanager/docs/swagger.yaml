@@ -1,0 +1,388 @@
+definitions:
+  api.FileListStat:
+    description: File List Stat
+    properties:
+      createTime:
+        type: string
+      id:
+        description: ID
+        type: integer
+      name:
+        description: Name
+        type: string
+      size:
+        description: Size
+        type: integer
+      tags:
+        description: Tags
+        items:
+          type: string
+        type: array
+      type:
+        description: Type
+        type: string
+    type: object
+  api.FileStat:
+    description: file stat
+    properties:
+      createTime:
+        type: string
+      id:
+        description: file's ID
+        type: integer
+      name:
+        description: file's Name
+        type: string
+      size:
+        description: / file's Size
+        type: integer
+      tags:
+        description: file's Tags
+        items:
+          type: string
+        type: array
+      ticket:
+        description: file's Ticket
+        type: string
+      type:
+        description: file's Type
+        type: string
+    type: object
+  api.PutFileRet:
+    description: upload file response
+    properties:
+      createTime:
+        type: string
+      id:
+        description: file's ID
+        type: integer
+      name:
+        description: file's Name
+        type: string
+      size:
+        description: / file's Size
+        type: integer
+      tags:
+        description: file's Tags
+        items:
+          type: string
+        type: array
+      ticket:
+        description: file's Ticket
+        type: string
+      type:
+        description: file's Type
+        type: string
+    type: object
+  api.Result:
+    properties:
+      data: {}
+      msg:
+        type: string
+    type: object
+  api.TokenRest:
+    properties:
+      jwt:
+        type: string
+    type: object
+  serror.APIError:
+    properties:
+      errorCode:
+        type: integer
+      errorMessage:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server Petstore server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger API
+  version: "1.0"
+paths:
+  /api/file:
+    get:
+      consumes:
+      - application/json
+      description: get struct array
+      parameters:
+      - description: pageSize
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        required: true
+        type: integer
+      - description: search key word
+        in: query
+        name: key
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/api.FileListStat'
+                  type: array
+              type: object
+        "400":
+          description: We need args!!
+          schema:
+            $ref: '#/definitions/serror.APIError'
+        "404":
+          description: Can not find data
+          schema:
+            $ref: '#/definitions/serror.APIError'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - File
+    post:
+      consumes:
+      - multipart/form-data
+      description: post a file
+      parameters:
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.PutFileRet'
+              type: object
+        "400":
+          description: We need ID!!
+          schema:
+            $ref: '#/definitions/serror.APIError'
+        "404":
+          description: Can not find ID
+          schema:
+            $ref: '#/definitions/serror.APIError'
+      tags:
+      - File
+  /api/file/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                data:
+                  type: integer
+              type: object
+        "400":
+          description: We need ID!!
+          schema:
+            $ref: '#/definitions/serror.APIError'
+        "404":
+          description: Can not find ID
+          schema:
+            $ref: '#/definitions/serror.APIError'
+      tags:
+      - File
+    get:
+      consumes:
+      - application/json
+      description: get struct array by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.FileStat'
+              type: object
+        "400":
+          description: We need ID!!
+          schema:
+            $ref: '#/definitions/serror.APIError'
+        "404":
+          description: Can not find ID
+          schema:
+            $ref: '#/definitions/serror.APIError'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - File
+  /api/file/{id}/download:
+    get:
+      consumes:
+      - application/json
+      description: download file by id
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: desc
+          schema: {}
+        "400":
+          description: We need ID!!
+          schema:
+            $ref: '#/definitions/serror.APIError'
+        "404":
+          description: Can not find ID
+          schema:
+            $ref: '#/definitions/serror.APIError'
+      tags:
+      - File
+  /api/user/login:
+    post:
+      consumes:
+      - application/json
+      description: user login
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.Result'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.TokenRest'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/serror.APIError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/serror.APIError'
+      tags:
+      - User
+  /helloworld:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: ping example
+      tags:
+      - example
+  /testapi/get-string-by-int/{some_id}:
+    get:
+      consumes:
+      - application/json
+      description: get string by ID
+      parameters:
+      - description: Some ID
+        in: path
+        name: some_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: We need ID!!
+          schema:
+            $ref: '#/definitions/serror.APIError'
+        "404":
+          description: Can not find ID
+          schema:
+            $ref: '#/definitions/serror.APIError'
+      summary: Add a new pet to the store
+  /testapi/get-struct-array-by-string/{some_id}:
+    get:
+      consumes:
+      - application/json
+      description: get struct array by ID
+      parameters:
+      - description: Some ID
+        in: path
+        name: some_id
+        required: true
+        type: string
+      - description: Offset
+        in: query
+        name: offset
+        required: true
+        type: integer
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: We need ID!!
+          schema:
+            $ref: '#/definitions/serror.APIError'
+        "404":
+          description: Can not find ID
+          schema:
+            $ref: '#/definitions/serror.APIError'
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
