@@ -2,8 +2,14 @@ version: "1.0"
 environment: development
 server:
    name: "fmanager"
+   
    port: ":3000"
    html: "/app/dist/*.html"
    static: "/app/dist/assets"
+
+   # port: ":8080"
+   # html: "D:\\Source\\soriys-fst\\back\\fmanager\\dist\\*.html"
+   # static: "D:\\Source\\soriys-fst\\back\\fmanager\\dist\\assets"
 database:
-   dns: "host=localhost user=postgres password=mysecretpassword dbname=auth port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+   dns: "host=some-postgres user=postgres password=mysecretpassword dbname=auth port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+   # dns: "host=localhost user=postgres password=mysecretpassword dbname=auth port=5432 sslmode=disable TimeZone=Asia/Shanghai"

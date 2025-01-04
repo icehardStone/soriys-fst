@@ -19,6 +19,7 @@ export class FileModel extends BaseEntity {
 // 下载文件接口定义
 interface IFileService {
     remove(id: number): Promise<void>;
+    getDownloadUrl(id: number): string;
     download(id: number, name: string): void;
     getList(pageSize?: number, pageIndex?: number): Promise<FileModel[]>;
 }
@@ -30,15 +31,25 @@ class FileService implements IFileService {
             console.log(resp.data)
         }
     }
+    getDownloadUrl(id:number): string {
+        const token = defaultTokenService.get() ?? "";
+        // return window.location.origin + `/api/file/${id}/download?token=` + encodeURIComponent(token);
+         return `/api/file/${id}/download?token=` + encodeURIComponent(token);
+    }
     download(id: number, name: string): void {
-        var a = document.createElement('a')
-        var event = new MouseEvent('click')
+       
+        const href = this.getDownloadUrl(id);
 
-        a.download = name;
-        a.href = `/api/file/${id}/download?token=${defaultTokenService.get()}`;
+        // console.log(href);
+        // var a = document.createElement('a');
+        // a.target = "_blank";
+        // a.href = href;
+        // a.download = name;
+        // a.click();
 
-        a.dispatchEvent(event)
-        // document.removeChild(a);
+        // window.location.href = href;
+        window.open(href,"_blank");
+        
     }
     async getList(pageSize?: number, pageIndex?: number): Promise<FileModel[]> {
         const reps = await httpClient.get('/api/file', {

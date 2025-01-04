@@ -25,7 +25,7 @@
                         <el-icon class="h-pointer h-red" style="margin-right: 1rem" @click="handleDelete(scope.row.id)">
                             <DeleteFilled />
                         </el-icon>
-                        <el-icon class="h-pointer h-blue" @click="handleDownload(scope.row.id, scope.row.name)">
+                        <el-icon class="h-pointer h-blue" @click="fileService.download(scope.row.id, scope.row.name)">
                             <UploadFilled />
                         </el-icon>
                     </template>
@@ -47,7 +47,7 @@
                             <el-icon class="h-pointer h-red" style="margin-right: 1rem" @click="handleDelete(f.id)">
                                 <DeleteFilled />
                             </el-icon>
-                            <el-icon class="h-pointer h-blue" @click="handleDownload(f.id, f.name)">
+                            <el-icon class="h-pointer h-blue" @click="fileService.download(f.id, f.name)">
                                 <UploadFilled />
                             </el-icon>
                         </div>
@@ -63,7 +63,6 @@ import { UploadFilled } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import { FileModel, fileService } from '@/service/FileService'
 import { defaultTokenService } from '@/service/TokenService'
-// import { id } from 'element-plus/es/locale';
 
 onMounted(() => {
      refresh()
@@ -75,9 +74,6 @@ const handleDelete = async (id: number) => {
     await refresh()
 }
 
-const handleDownload = async (id: number, name: string) => {
-    await fileService.download(id, name)
-}
 const handleSuccess = async (res: any) => {
     console.log("handleSuccess")
     console.log(res)

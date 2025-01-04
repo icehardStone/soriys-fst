@@ -1,7 +1,6 @@
 package store
 
 import (
-	"fmt"
 	"io"
 	"mime/multipart"
 	"os"
@@ -23,21 +22,11 @@ type DiskFileManager struct {
 }
 
 func (disk *DiskFileManager) Load(cxt *gin.Context, f File) error {
-	out, err := os.Open(f.StorageName)
-	if err != nil {
-		return err
-	}
-	// defer out.Close()
 
-	// return out, nil
-	// 设置响应头
 	cxt.Header("Content-Disposition", "attachment; filename="+f.Name)
-	cxt.Header("Content-Type", "application/octet-stream")
-	cxt.Header("Content-Length", fmt.Sprintf("%d", f.Size))
+	cxt.File(f.StorageName)
 
-	_, err = io.Copy(cxt.Writer, out)
-
-	return err
+	return nil
 }
 func (disk *DiskFileManager) Save(file *multipart.FileHeader) (*string, error) {
 

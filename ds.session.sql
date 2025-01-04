@@ -5,7 +5,9 @@ SELECT * from "ClientRedirectUris";
 
 -- INSERT INTO "ClientRedirectUris" ( "RedirectUri", "ClientId")
 -- VALUES (
---     'http://43.134.115.113:44300/signin-oidc.html',
+--     'http://192.168.137.1:3000/signin-oidc.html',
 --     2
 --   );
-  
+
+
+delete from "ClientRedirectUris" where "Id" in (6,7,8)
