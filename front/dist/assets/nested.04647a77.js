@@ -1,1 +1,0 @@
-import{M as i,d as n}from"./oidcConfig.ad84aa25.js";i.signinRedirectCallback().then(()=>{i.getUser().then(e=>{e?(n.add(e.token_type+" "+e.access_token),window.location.href="/"):i.signinRedirect()})});
