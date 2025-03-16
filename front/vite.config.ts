@@ -18,8 +18,8 @@ export default defineConfig({
     host: "0.0.0.0",
     proxy: {
       '/api': {
-        // "target": "http://43.134.115.113:44300",
-        "target": "http://localhost:8080",
+        "target": "http://43.134.115.113:44300",
+        // "target": "http://localhost:8080",
         "changeOrigin": false,
       },
       '/.well-known': {

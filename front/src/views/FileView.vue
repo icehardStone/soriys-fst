@@ -1,7 +1,8 @@
 <template>
     <div id="file-container">
         <div>
-            <el-upload class="bg-slide-blue" :headers="headers" drag action="/api/file" :on-success="handleSuccess" multiple>
+            <el-upload class="bg-slide-blue" :headers="headers" drag action="/api/file" :on-success="handleSuccess"
+                multiple>
                 <el-icon class="el-icon--upload"><upload-filled /></el-icon>
                 <div class="el-upload__text">
                     Drop file here or <em>click to upload</em>
@@ -22,17 +23,19 @@
                 <!-- <el-table-column prop="zip" label="Zip" width="120" /> -->
                 <el-table-column fixed="right" label="Operations" min-width="120">
                     <template #default="scope">
-                        <el-icon class="h-pointer h-red" style="margin-right: 1rem" @click="handleDelete(scope.row.id)">
+                        <el-icon :size="30" class="h-pointer h-red" style="margin-right: 1rem"
+                            @click="handleDelete(scope.row.id)">
                             <DeleteFilled />
                         </el-icon>
-                        <el-icon class="h-pointer h-blue" @click="fileService.download(scope.row.id, scope.row.name)">
-                            <UploadFilled />
+                        <el-icon :size="30" class="h-pointer h-blue"
+                            @click="fileService.download(scope.row.id, scope.row.name)">
+                            <Download />
                         </el-icon>
                     </template>
                 </el-table-column>
             </el-table>
         </div>
-        <div  v-infinite-scroll="load" id="file-container-data-list" style="overflow: auto">
+        <div v-infinite-scroll="load" id="file-container-data-list" style="overflow: auto">
             <div v-for="f in tableData" :key="f.id" class="list-item">
                 <el-card>
                     <div class="list-item-container">
@@ -44,11 +47,12 @@
                             </p>
                         </div>
                         <div class="list-item-container-operate">
-                            <el-icon class="h-pointer h-red" style="margin-right: 1rem" @click="handleDelete(f.id)">
+                            <el-icon :size="30" class="h-pointer h-red" style="margin-right: 1rem"
+                                @click="handleDelete(f.id)">
                                 <DeleteFilled />
                             </el-icon>
-                            <el-icon class="h-pointer h-blue" @click="fileService.download(f.id, f.name)">
-                                <UploadFilled />
+                            <el-icon :size="30" class="h-pointer h-blue" @click="fileService.download(f.id, f.name)">
+                                <Download />
                             </el-icon>
                         </div>
                     </div>
@@ -59,13 +63,13 @@
 </template>
 
 <script setup lang="ts">
-import { UploadFilled } from '@element-plus/icons-vue'
+import { Download, UploadFilled } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import { FileModel, fileService } from '@/service/FileService'
 import { defaultTokenService } from '@/service/TokenService'
 
 onMounted(() => {
-     refresh()
+    refresh()
 })
 
 const handleDelete = async (id: number) => {
@@ -99,22 +103,18 @@ const headers = {
 }
 
 .h-blue {
-    color: rgb(0, 81, 255);
+    color: rgb(0, 81, 255) !important;
 }
 
 .h-red {
-    color: red;
+    color: red !important;
 }
 
 #file-container {
     padding: 20px;
     overflow: auto;
 
-    // &-data-grid {}
-
     &-data-list {
-        // display: none;
-
         .list-item {
             margin-bottom: 20px;
 
