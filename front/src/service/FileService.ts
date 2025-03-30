@@ -41,14 +41,14 @@ class FileService implements IFileService {
         const href = this.getDownloadUrl(id);
 
         // console.log(href);
-        // var a = document.createElement('a');
-        // a.target = "_blank";
-        // a.href = href;
-        // a.download = name;
-        // a.click();
+        var a = document.createElement('a');
+        a.target = "_blank";
+        a.href = href;
+        a.download = name;
+        a.click();
 
         // window.location.href = href;
-        window.open(href,"_blank");
+        // window.open(href,"_blank");
         
     }
     async getList(pageSize?: number, pageIndex?: number): Promise<FileModel[]> {
